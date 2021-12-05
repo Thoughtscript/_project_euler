@@ -1,0 +1,35 @@
+<!--https://projecteuler.net/problem=1-->
+
+<script>
+const solve = n => {
+    let result = []
+
+    for (let i = 0; i < n; i++) {
+        if (i % 3 === 0 || i % 5 === 0) result.push(i)
+    }
+
+    console.log(result)
+    return sum(result)
+}
+
+const sum = arr => {
+    let result = 0
+    for (let i = 0; i < arr.length; i++) {
+        result += arr[i]
+    }
+    return result
+}
+
+
+window.onload = function() {
+    console.log(solve(1))
+    console.log(solve(3))
+    console.log(solve(10))
+    console.log(solve(5))
+    console.log(solve(100))
+    console.log(solve(200))
+    console.log(solve(20))
+    console.log(solve(1000))
+}
+
+</script>

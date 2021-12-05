@@ -1,0 +1,35 @@
+<!--https://projecteuler.net/problem=2-->
+
+<script>
+  function innerFib(arr, n, current) {
+    if (current < 2) arr.push(current);else
+
+    arr.push(arr[current - 2] + arr[current - 1]);
+
+    if (current < n) {
+      current++;
+      innerFib(arr, n, current);
+    } else {
+        console.log(arr)
+        console.log(sum(arr))
+    }
+  }
+
+  function fibonacci(n) {
+    innerFib(arr = [], n, 0)
+  }
+
+const sum = arr => {
+    let result = 0
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] % 2 === 0 && arr[i] <= 4000000) result += arr[i]
+    }
+    return result
+}
+
+
+window.onload = function() {
+    fibonacci(45)
+}
+
+</script>
