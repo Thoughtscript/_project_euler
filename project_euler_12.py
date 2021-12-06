@@ -16,14 +16,14 @@ if __name__ == '__main__':
             print(arr)
             return arr
 
-        # Will be even and above 38548590.
+        # Will be even and above 39645060.
         # Probably ending in a 0.
         # Probably having 1-10 as divisors.
         # Need to understand the relationships of these first...
 
         def solve(tri_nums):
             for x in range(0, len(tri_nums),1):
-                if tri_nums[x] < 38548590:
+                if tri_nums[x] < 39645060:
                     continue
 
                 factors = []
