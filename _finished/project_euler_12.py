@@ -1,32 +1,34 @@
 # https://projecteuler.net/problem=12
 
+import primes_to_2mil as PRIMES
+
 if __name__ == '__main__':
 
     try:
 
-        # Generate an 0-indexed array where:
-        # sieve[i] = False indicates non-prime
-        # sieve[i] = True indicates prime
-        def sieve_of_eratosthenes(num):
-            sieve = [0] * num
-            sieve[0] = False
-            # print(sieve)
+        def prime_map():
+            primes = {}
 
-            for x in range(2, num+1, 1):
-                if sieve[x-1] is 0:
-                    sieve[x-1] = True
+            for x in range(0, len(PRIMES.primes), 1):
+                primes[PRIMES.primes[x]] = True
+            
+            print(primes)
+            return primes
 
-                for y in range(x*2, num+1, x):
-                    sieve[y-1] = False
+        PRIME_MAP = prime_map()
 
-                # print(sieve)
+        def check_prime(num):
+            SQ_RT = pow(num, 1/2)
 
-            # print(sieve)
-            return sieve
+            for x in range(2, SQ_RT+1, 1):
+                if num % x == 0:
+                    return False
+
+            return True
 
          # Offset num by one when accessing
         
-        def prime_factorization(num, primes):
+        def prime_factorization(num):
             result = []
             rem = num
 
@@ -36,7 +38,10 @@ if __name__ == '__main__':
 
             # Must be odd or not divisible by 2 once it reaches here
             for x in range(3, num+1, 2):
-                if (primes[x-1] == False):
+                if PRIME_MAP.get(x) is None and x <= 1999993:
+                    continue
+
+                if x > 1999993 and not check_prime(x):
                     continue
 
                 while (rem % x == 0):
@@ -49,8 +54,8 @@ if __name__ == '__main__':
             # print(result)
             return result
 
-        def number_of_divisors(num, primes):
-            prime_factors = prime_factorization(num, primes)
+        def number_of_divisors(num):
+            prime_factors = prime_factorization(num)
             result = 1
             hm = {}
 
@@ -88,26 +93,33 @@ if __name__ == '__main__':
         def solve(num):
             # Cache these so they aren't repeatedly generated.
             triangulars = generate(num)
-            primes = sieve_of_eratosthenes(triangulars[len(triangulars)-1])
+            num_with_most_factors = 1
+            most_factors = 1
 
             for x in range(0, len(triangulars),1):
-                factors = number_of_divisors(triangulars[x], primes)
-                print("Triangular Number: " + str(triangulars[x]) + " has number of factors: " + str(factors))
+                TRI_NUM = triangulars[x]
+                factors = number_of_divisors(TRI_NUM)
+                print("Triangular Number: " + str(TRI_NUM) + " has number of factors: " + str(factors))
+
+                if factors > most_factors:
+                    most_factors = factors
+                    num_with_most_factors = TRI_NUM
+                    print("New largest num. of factors found: " + str(num_with_most_factors) + " with: " + str(most_factors))
 
                 if factors > 500:
-                    print("Triangular Number found: " + str(triangulars[x]) + " with number of factors: " + str(factors))
-                    return triangulars[x]
+                    print("Triangular Number found: " + str(TRI_NUM) + " with number of factors: " + str(factors))
+                    return TRI_NUM
             
             print("Factors > 500 not found in triangular number set up to and including " + str(num))
             return "Factors > 500 not found in triangular number set up to and including " + str(num)
 
-        # This is the upper limit here.
-        # num = 10000000
-        # primes = sieve_of_eratosthenes(num)
-        # print(number_of_divisors(num, primes))
-        # print(prime_factorization(num, primes))
-
         solve(99999)
+
+        # New largest num. of factors found: 2031120 with: 240
+        # New largest num. of factors found: 2162160 with: 320
+        # New largest num. of factors found: 17907120 with: 480
+        # Above: 75638850
+        # Triangular Number: 76576500 has number of factors: 576
 
     except Exception as ex:
         print('Exception: ' + str(ex))

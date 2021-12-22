@@ -84,6 +84,15 @@ if __name__ == '__main__':
         #number_of_divisors(10)
         #number_of_divisors(5)
 
+        def check_prime(num):
+            SQ_RT = pow(num, 1/2)
+
+            for x in range(2, SQ_RT+1, 1):
+                if num % x == 0:
+                    return False
+
+            return True
+
     except Exception as ex:
 
         print('Exception: ' + str(ex))
