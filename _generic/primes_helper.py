@@ -34,7 +34,7 @@ if __name__ == '__main__':
                 rem = rem / 2
                 result.append(2)
 
-            # Must be odd or not divisible by 2
+            # Must be odd or not divisible by 2 once it reaches here
             for x in range(3, num+1, 2):
                 if (primes[x-1] == False):
                     continue
