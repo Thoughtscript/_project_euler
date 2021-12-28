@@ -180,8 +180,8 @@ if __name__ == '__main__':
 
                 # Should never be below 0, check math.
                 if diff < 0:
-                    print("Exception detected!")
-                    raise Exception("Hello")
+                    print("Should never be below 0, check math.")
+                    raise Exception("Should never be below 0, check math.")
                     return
 
                 result = result + orig_len - new_len
