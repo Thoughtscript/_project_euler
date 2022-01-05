@@ -26,6 +26,8 @@ if __name__ == '__main__':
 
         TRIPLES = make_triples()
 
+
+
         def includes(a, b):
             num_str = str(a)
             for x in range(0, len(num_str), 1):
@@ -33,9 +35,11 @@ if __name__ == '__main__':
                     return True
             return False
 
+
+
         # Cannot brute force the strings above: 10 x 720 x 720 x 720.
         # Must use string compression (or something faster): 3,628,800 vs. 3,732,480,000.
-        def make_strings():
+        def solve():
             result = []
 
             LEN = len(TRIPLES)
@@ -45,11 +49,27 @@ if __name__ == '__main__':
                 for a in range(0, LEN, 1):
                     A = TRIPLES[a]
 
+                    tempA = str(x) + A
+
+                    if not int(tempA[1] + tempA[2] + tempA[3]) % 2 == 0:
+                        continue
+
                     if includes(A, x):
                         continue
 
                     for b in range(0, LEN, 1):
                         B = TRIPLES[b]
+
+                        tempB = tempA + B
+
+                        if not int(tempB[2] + tempB[3] + tempB[4]) % 3 == 0:
+                            continue
+
+                        if not int(tempB[3] + tempB[4] + tempB[5]) % 5 == 0:
+                            continue
+
+                        if not int(tempB[4] + tempB[5] + tempB[6]) % 7 == 0:
+                            continue
 
                         if a == b:
                             continue
@@ -70,6 +90,17 @@ if __name__ == '__main__':
                         for c in range(0, LEN, 1):
                             C = TRIPLES[c]
 
+                            tempC = tempB + C
+
+                            if not int(tempC[5] + tempC[6] + tempC[7]) % 11 == 0:
+                                continue
+
+                            if not int(tempC[6] + tempC[7] + tempC[8]) % 13 == 0:
+                                continue
+
+                            if not int(tempC[7] + tempC[8] + tempC[9]) % 17 == 0:
+                                continue
+
                             if a == c or b == c:
                                 continue
 
@@ -87,63 +118,21 @@ if __name__ == '__main__':
                                 continue
 
                             num_str = str(x) + A + B + C
-                            print("String made: " + str(num_str))
+                            print("Pandigital Number made: " + str(num_str))
                             result.append(int(num_str))
 
             print(result)
-            return result
+            print("Number of Pandigital Numbers is: " + str(len(result)))
 
-        NUM_STRINGS = make_strings()
+            sum_result = 0
 
-        def is_pandigital(num):
-            num_str = str(num)
+            for x in range(0, len(result), 1):
+                sum_result = sum_result + int(result[x])
 
-            hm = {}
+            print("Sum total: " + str(sum_result))
+            return sum_result
 
-            for x in range(0, len(num), 1):
-                n = num[x]
-                check = hm.get(n)
-                if check is None:
-                    hm[n] = True
-                else:
-                    return False
-
-            # d2d3d4 is d1d2d3 offset by 1!
-            if not int(num_str[1] + num_str[2] + num_str[3]) % 2 == 0:
-                return False
-
-            if not int(num_str[2] + num_str[3] + num_str[4]) % 3 == 0:
-                return False
-
-            if not int(num_str[3] + num_str[4] + num_str[5]) % 5 == 0:
-                return False
-
-            if not int(num_str[4] + num_str[5] + num_str[6]) % 7 == 0:
-                return False
-
-            if not int(num_str[5] + num_str[6] + num_str[7]) % 11 == 0:
-                return False
-
-            if not int(num_str[6] + num_str[7] + num_str[8]) % 13 == 0:
-                return False
-
-            if not int(num_str[7] + num_str[8] + num_str[9]) % 17 == 0:
-                return False
-
-            return True
-
-        # ------------------------------------ #
-
-        def solve():
-            count = 0
-
-            for x in range(0, len(NUM_STRINGS), 1):
-                check = is_pandigital(NUM_STRINGS[x])
-                if check:
-                    count = count + 1
-
-            print("Pandigital Numbers found: " + str(count))
-            return count
+        NUM_STRINGS = solve() # 16695334890
         
 
     except Exception as ex:
