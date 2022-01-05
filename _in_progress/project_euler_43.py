@@ -26,6 +26,15 @@ if __name__ == '__main__':
 
         TRIPLES = make_triples()
 
+        def includes(a, b):
+            num_str = str(a)
+            for x in range(0, len(num_str), 1):
+                if int(num_str[x]) == int(b):
+                    return True
+            return False
+
+        # Cannot brute force the strings above: 10 x 720 x 720 x 720.
+        # Must use string compression (or something faster): 3,628,800 vs. 3,732,480,000.
         def make_strings():
             result = []
 
@@ -34,16 +43,50 @@ if __name__ == '__main__':
             for x in range(0, 10, 1):
 
                 for a in range(0, LEN, 1):
+                    A = TRIPLES[a]
+
+                    if includes(A, x):
+                        continue
 
                     for b in range(0, LEN, 1):
+                        B = TRIPLES[b]
+
                         if a == b:
                             continue
 
+                        if includes(B, x):
+                            continue
+
+                        found = False
+
+                        for y in range(0, len(B), 1):
+                            if includes(A, B[y]):
+                                found = True
+                                break
+
+                        if found:
+                            continue
+
                         for c in range(0, LEN, 1):
+                            C = TRIPLES[c]
+
                             if a == c or b == c:
                                 continue
 
-                            num_str = str(x) + TRIPLES[a] + TRIPLES[b] + TRIPLES[c]
+                            if includes(C, x):
+                                continue
+
+                            found = False
+
+                            for z in range(0, len(C), 1):
+                                if includes(B, C[z]) or includes(A, C[z]):
+                                    found = True
+                                    break
+
+                            if found:
+                                continue
+
+                            num_str = str(x) + A + B + C
                             print("String made: " + str(num_str))
                             result.append(int(num_str))
 
