@@ -114,14 +114,13 @@ if __name__ == '__main__':
         DIGITS = [1,2,3,4,5]
         # combination(DIGITS, 4)
 
+        # The largest such n-digit Pandigital Number will be less than or equal to 9876543210.
+        # I solved problem 43 previously:
+        # 1406357289, 1430952867, 1460357289, 4106357289, 4130952867, 4160357289]
+        # are the only 6 Pandigital Numbers of length 10.
+        # None of those are prime numbers, so the largest one is less than length 10.
+
         def solve():
-
-            # I solved problem 43 previously:
-            # [1406357289, 1430952867, 1460357289, 4106357289, 4130952867, 4160357289] 
-            # are the only 6 Pandigital Numbers of length 10.
-
-            # The largest such n-digit Pandigital Number will be less than or equal to 9876543210.
-            # There are none of length 10.
             for x in range(2, 10, 1):
                 combination = combination(DIGITS, x)
                 heaps = permute(combination)
