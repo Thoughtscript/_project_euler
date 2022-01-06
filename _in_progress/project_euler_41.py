@@ -34,7 +34,7 @@ if __name__ == '__main__':
                 # Either a number is Prime
                 # Or it has 2 or more Prime Factors
                 # So, if this is > 1, it's not Prime
-                if len(divisors) > 1:
+                if len(divisors) >= 1:
                     # print(divisors)
                     continue
 
@@ -43,10 +43,11 @@ if __name__ == '__main__':
                 for y in range(18, num, 1):
                     if num % y == 0:
                         divisors.append(y)
+                        # print(divisors)
                         num = num / y
 
                     # Much faster shortcut here
-                    if len(divisors) > 1:
+                    if len(divisors) >= 1:
                         not_prime = True
                         break
                 
@@ -59,9 +60,11 @@ if __name__ == '__main__':
                 if len(divisors) == 2:
                     primes.append(num)
 
-            print(" ========= Primes larger than current largest found: ========= ")
-            primes.sort()
-            print(primes)
+            if len(primes) > 0:
+                print(" ========= Primes larger than current largest found: ========= ")
+                primes.sort()
+                print(primes)
+
             return primes
 
         # ----------------- #
@@ -88,8 +91,11 @@ if __name__ == '__main__':
                 if n == 1: 
                     key = make_key(transfer_arr)
                     if int(key) > largest:
-                        print(str(int(key)) + " skipped since it's lower than: " + str(largest))
                         heaps_results[key] = int(key)
+                    else:
+                        print(key + " skipped since it's lower than: " + str(largest) + " during heaps")
+                        
+                    return
             
                 for i in range(0, n, 1):
                     heaps_algorithm(n-1)
