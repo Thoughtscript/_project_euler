@@ -13,11 +13,15 @@ if __name__ == '__main__':
 
         # This is Greedily coded to find prime numbers above 17.
         # E.g. - it won'y return 17 as prime!
-        def find_primes(pandigital_numbers):
+        def find_primes(pandigital_numbers, largest):
             primes = []
 
             for x in range(0, len(pandigital_numbers), 1):
                 num = pandigital_numbers[x]
+                if num < largest:
+                    print(str(num) + " skipped since it's lower than: " + str(largest))
+                    continue
+
                 divisors = []
 
                 for y in range(0, len(LOW_PRIMES), 1):
@@ -41,6 +45,7 @@ if __name__ == '__main__':
                         divisors.append(y)
                         num = num / y
 
+                    # Much faster shortcut here
                     if len(divisors) > 1:
                         not_prime = True
                         break
@@ -54,7 +59,8 @@ if __name__ == '__main__':
                 if len(divisors) == 2:
                     primes.append(num)
 
-            print(" ========= Primes found: ========= ")
+            print(" ========= Primes larger than current largest found: ========= ")
+            primes.sort()
             print(primes)
             return primes
 
@@ -68,7 +74,7 @@ if __name__ == '__main__':
 
             return string_result
 
-        def permute(original_arr):
+        def permute(original_arr, largest):
             # print(original_arr)
             transfer_arr = original_arr
             heaps_results = {}
@@ -81,7 +87,9 @@ if __name__ == '__main__':
             def heaps_algorithm(n):
                 if n == 1: 
                     key = make_key(transfer_arr)
-                    heaps_results[key] = int(key)
+                    if int(key) > largest:
+                        print(str(int(key)) + " skipped since it's lower than: " + str(largest))
+                        heaps_results[key] = int(key)
             
                 for i in range(0, n, 1):
                     heaps_algorithm(n-1)
@@ -105,7 +113,7 @@ if __name__ == '__main__':
 
         # 1 2 3
         # 1 2 4
-        # 1 3 4c
+        # 1 3 4
 
         # 1 2 3 4
         # 1 2 3 5
@@ -170,12 +178,28 @@ if __name__ == '__main__':
             return result
 
         def solve():
+            largest = 0
             # Can modify this row
             for x in range(2, 10, 1):
+
                 combos = combination(9, x)
                 for y in range(0, len(combos), 1):
-                    heaps = permute(combos[y])
-                    find_primes(map_to_arr(heaps))
+
+                    # Pass in largest to optimize!!!
+                    heaps = permute(combos[y], largest)
+
+                    # Pass in largest to optimize!!!
+                    primes = find_primes(map_to_arr(heaps), largest)
+                    if len(primes) > 0:
+                        temp_largest = primes[len(primes) - 1]
+                        if temp_largest > largest:
+                            largest = temp_largest
+                            print(" ============================= ")
+                            print("New Largest Prime Pandigital found: " + str(largest))
+
+            print(" ============================= ")
+            print("Largest Prime Pandigital is: " + str(largest))
+            return largest
 
         solve()
 
