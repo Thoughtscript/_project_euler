@@ -20,7 +20,7 @@ if __name__ == '__main__':
                 orig_num = pandigital_numbers[x]
                 num = pandigital_numbers[x]
                 if num < largest:
-                    print(str(num) + " skipped since it's lower than: " + str(largest))
+                    # print(str(num) + " skipped since it's lower than: " + str(largest))
                     continue
 
                 not_prime = False
@@ -35,7 +35,7 @@ if __name__ == '__main__':
                         break
 
                 if not_prime:
-                    print(str(orig_num) + " is not prime ")
+                    # print(str(orig_num) + " is not prime ")
                     continue
 
                 not_prime = False
@@ -46,7 +46,7 @@ if __name__ == '__main__':
                         break
                 
                 if not_prime:
-                    print(str(orig_num) + " is not prime ")
+                    # print(str(orig_num) + " is not prime ")
                     continue
                 
                 # This massively speeds things up!
@@ -54,15 +54,6 @@ if __name__ == '__main__':
                     largest = num
                     print(" ============================= ")
                     print("New Largest Prime Pandigital found: " + str(largest))
-
-                primes.append(num)
-
-            if len(primes) > 0:
-                print(" ========= Primes that were larger than the current largest found: ========= ")
-                primes.sort()
-                print(primes)
-
-            return primes
 
         # ----------------- #
 
@@ -89,9 +80,8 @@ if __name__ == '__main__':
                     key = make_key(transfer_arr)
                     if int(key) > largest:
                         heaps_results[key] = int(key)
-                    else:
-                        print(key + " skipped since it's lower than: " + str(largest) + " during heaps")
-                        
+                    # else:
+                        # print(key + " skipped since it's lower than: " + str(largest) + " during heaps")
                     return
             
                 for i in range(0, n, 1):
@@ -149,6 +139,7 @@ if __name__ == '__main__':
 
         # It's at least as large as 9876413, Pandigital Number length 7.
         # It's at least as large as 98765431, Pandigital Number length 8.
+        # It's at least as large as 341965027, Pandigital Number length 9.
 
         def map_to_arr(hm):
             result = []
@@ -160,7 +151,7 @@ if __name__ == '__main__':
             return result
 
         def solve():
-            largest = 98765431
+            largest = 341965027
             for x in range(2, 10, 1):
 
                 combos = combination(9, x)
@@ -170,19 +161,13 @@ if __name__ == '__main__':
                     heaps = permute(combos[y], largest)
 
                     # Pass in largest to optimize!!!
-                    primes = find_primes(map_to_arr(heaps), largest)
-                    if len(primes) > 0:
-                        temp_largest = primes[len(primes) - 1]
-                        if temp_largest > largest:
-                            largest = temp_largest
-                            print(" ============================= ")
-                            print("New Largest Prime Pandigital found: " + str(largest))
+                    find_primes(map_to_arr(heaps), largest)
 
             print(" ============================= ")
             print("Largest Prime Pandigital is: " + str(largest))
             return largest
 
-        solve() # 76503241
+        solve() # 341965027
 
     except Exception as ex:
 
