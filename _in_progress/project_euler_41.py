@@ -17,51 +17,48 @@ if __name__ == '__main__':
             primes = []
 
             for x in range(0, len(pandigital_numbers), 1):
+                orig_num = pandigital_numbers[x]
                 num = pandigital_numbers[x]
                 if num < largest:
                     print(str(num) + " skipped since it's lower than: " + str(largest))
                     continue
 
-                divisors = []
-
+                not_prime = False
                 for y in range(0, len(LOW_PRIMES), 1):
                     prime = LOW_PRIMES[y]
 
+                    # Either a number is Prime
+                    # Or it has 2 or more Prime Factors
+                    # So, if this is >= 1, it's not Prime
                     while (num % prime == 0):
-                        divisors.append(prime)
-                        num = num / prime
+                        not_prime = True
+                        break
 
-                # Either a number is Prime
-                # Or it has 2 or more Prime Factors
-                # So, if this is > 1, it's not Prime
-                if len(divisors) >= 1:
-                    # print(divisors)
+                if not_prime:
+                    print(str(orig_num) + " is not prime ")
                     continue
 
                 not_prime = False
 
                 for y in range(18, num, 1):
                     if num % y == 0:
-                        divisors.append(y)
-                        # print(divisors)
-                        num = num / y
-
-                    # Much faster shortcut here
-                    if len(divisors) >= 1:
                         not_prime = True
                         break
                 
                 if not_prime:
+                    print(str(orig_num) + " is not prime ")
                     continue
-
-                divisors.append(num)
-                divisors.append(1)
                 
-                if len(divisors) == 2:
-                    primes.append(num)
+                # This massively speeds things up!
+                if num > largest:
+                    largest = num
+                    print(" ============================= ")
+                    print("New Largest Prime Pandigital found: " + str(largest))
+
+                primes.append(num)
 
             if len(primes) > 0:
-                print(" ========= Primes larger than current largest found: ========= ")
+                print(" ========= Primes that were larger than the current largest found: ========= ")
                 primes.sort()
                 print(primes)
 
@@ -105,27 +102,9 @@ if __name__ == '__main__':
                     swap(n-1, v)
 
             heaps_algorithm(len(original_arr))
-            # print(heaps_results)
             return heaps_results
 
-        # permute([0])
-        # permute([0,1])
-        # permute([0,1,2])
-        # permute([0,1,2,3])
-        # permute([0,1,2,3,4])
-        # permute([0,1,2,3,4,5])
-
         # ----------------- #
-
-        # 1 2 3
-        # 1 2 4
-        # 1 3 4
-
-        # 1 2 3 4
-        # 1 2 3 5
-        # 1 2 4 5
-        # 1 3 4 5
-        # 2 3 4 5
 
         def deep_copy(arr):
             new_arr = []
@@ -160,12 +139,6 @@ if __name__ == '__main__':
             print(result)
             return result
 
-        # combination(4, 4)
-        # combination(3, 3)
-        # combination(8, 3)
-        # combination(5, 5)
-        # combination(9, 5)
-
         # ----------------- #
 
         # The largest such n-digit Pandigital Number will be less than or equal to 9876543210.
@@ -173,6 +146,9 @@ if __name__ == '__main__':
         # 1406357289, 1430952867, 1460357289, 4106357289, 4130952867, 4160357289
         # are the only 6 Pandigital Numbers of length 10.
         # None of those are prime numbers, so the largest one is less than length 10.
+
+        # It's at least as large as 9876413, Pandigital Number length 7.
+        # It's at least as large as 98765431, Pandigital Number length 8.
 
         def map_to_arr(hm):
             result = []
@@ -184,8 +160,7 @@ if __name__ == '__main__':
             return result
 
         def solve():
-            largest = 0
-            # Can modify this row
+            largest = 98765431
             for x in range(2, 10, 1):
 
                 combos = combination(9, x)
@@ -207,7 +182,7 @@ if __name__ == '__main__':
             print("Largest Prime Pandigital is: " + str(largest))
             return largest
 
-        solve()
+        solve() # 76503241
 
     except Exception as ex:
 
