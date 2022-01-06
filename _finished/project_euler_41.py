@@ -14,11 +14,12 @@ if __name__ == '__main__':
         # This is Greedily coded to find prime numbers above 17.
         # E.g. - it won'y return 17 as prime!
         def find_primes(pandigital_numbers, largest):
-            primes = []
+            pandigital_numbers.sort(reverse=True)
 
             for x in range(0, len(pandigital_numbers), 1):
                 orig_num = pandigital_numbers[x]
                 num = pandigital_numbers[x]
+
                 if num < largest:
                     # print(str(num) + " skipped since it's lower than: " + str(largest))
                     continue
@@ -40,7 +41,7 @@ if __name__ == '__main__':
 
                 not_prime = False
 
-                for y in range(18, num, 1):
+                for y in range(18, num / 2, 1):
                     if num % y == 0:
                         not_prime = True
                         break
@@ -124,6 +125,8 @@ if __name__ == '__main__':
                     # Super helpful!
                     temp.pop()
 
+            # Oops - save this probably useful later on - cannot include 0!
+            # A Pandigital number of length n must include all numbers from 1 to n.
             inner(n, 0, k)
             print(" ========= Combinations: ========= ")
             print(result)
@@ -132,14 +135,7 @@ if __name__ == '__main__':
         # ----------------- #
 
         # The largest such n-digit Pandigital Number will be less than or equal to 9876543210.
-        # I solved problem 43 previously:
-        # 1406357289, 1430952867, 1460357289, 4106357289, 4130952867, 4160357289
-        # are the only 6 Pandigital Numbers of length 10.
-        # None of those are prime numbers, so the largest one is less than length 10.
-
-        # It's at least as large as 9876413, Pandigital Number length 7.
-        # It's at least as large as 98765431, Pandigital Number length 8.
-        # It's at least as large as 341965027, Pandigital Number length 9.
+        # A Pandigital number of length n must include ALL numbers from 1 to n.
 
         def map_to_arr(hm):
             result = []
@@ -150,9 +146,9 @@ if __name__ == '__main__':
 
             return result
 
-        def solve():
-            largest = 341965027
-            for x in range(2, 10, 1):
+        def solve(set_largest, starting_length):
+            largest = set_largest
+            for x in range(starting_length, 11, 1):
 
                 combos = combination(9, x)
                 for y in range(0, len(combos), 1):
@@ -167,7 +163,40 @@ if __name__ == '__main__':
             print("Largest Prime Pandigital is: " + str(largest))
             return largest
 
-        solve() # 341965027
+
+        # solve(0, 2)
+
+        # ----------------- # 
+
+        def solve_b():
+            largest = 1234
+            heaps = permute([2,1], largest)
+            find_primes(map_to_arr(heaps), largest)
+
+            heaps = permute([3,2,1], largest)
+            find_primes(map_to_arr(heaps), largest)
+
+            heaps = permute([4,3,2,1], largest)
+            find_primes(map_to_arr(heaps), largest)
+
+            heaps = permute([5,4,3,2,1], largest)
+            find_primes(map_to_arr(heaps), largest)
+
+            heaps = permute([6,5,4,3,2,1], largest)
+            find_primes(map_to_arr(heaps), largest)
+
+            heaps = permute([7,6,5,4,3,2,1], largest)
+            find_primes(map_to_arr(heaps), largest)
+
+            heaps = permute([8,7,6,5,4,3,2,1], largest)
+            find_primes(map_to_arr(heaps), largest)
+
+            heaps = permute([9,8,7,6,5,4,3,2,1], largest)
+            find_primes(map_to_arr(heaps), largest)
+
+        solve_b()
+
+        # ----------------- # 
 
     except Exception as ex:
 
