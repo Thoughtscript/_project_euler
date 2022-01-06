@@ -96,6 +96,9 @@ if __name__ == '__main__':
 
         # ----------------- #
 
+        # Oops - save this probably useful later on - cannot include 0!
+        # A Pandigital number of length n must include all numbers from 1 to n.
+
         def deep_copy(arr):
             new_arr = []
 
@@ -124,8 +127,6 @@ if __name__ == '__main__':
                     # Super helpful!
                     temp.pop()
 
-            # Oops - save this probably useful later on - cannot include 0!
-            # A Pandigital number of length n must include all numbers from 1 to n.
             inner(n, 0, k)
             print(" ========= Combinations: ========= ")
             print(result)
@@ -134,8 +135,12 @@ if __name__ == '__main__':
         # ----------------- #
 
         # The largest such n-digit Pandigital Number will be less than or equal to 9876543210.
-        # A Pandigital number of length n must include ALL numbers from 1 to n.
+        # A Pandigital number of length n must include ALL numbers from 1 to n!
+        # The below solves for the looser scenario where a number of length n need only have no two digits repeated.
 
+        # This is here to discharge the hashmap dict from memory rather 
+        # than both passing the hashmap and calling the values() method.
+        # It's unneeded in solve_b() but was a small memory optimization technique since I was hitting a billion+ numbers.
         def map_to_arr(hm):
             result = []
             hmv = hm.values()
@@ -145,7 +150,7 @@ if __name__ == '__main__':
 
             return result
 
-        def solve(set_largest, starting_length):
+        def solve_a(set_largest, starting_length):
             largest = set_largest
             for x in range(starting_length, 11, 1):
 
@@ -163,7 +168,7 @@ if __name__ == '__main__':
             return largest
 
 
-        # solve(0, 2)
+        # solve_a(0, 2)
 
         # ----------------- # 
 
