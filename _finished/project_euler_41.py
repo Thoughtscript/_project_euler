@@ -1,8 +1,7 @@
 # https://projecteuler.net/problem=41
 
-# This is equivalent to three+ mediums on LeetCode:
+# This is equivalent to two+ mediums on LeetCode:
 # https://leetcode.com/problems/permutations/ - Problem #46 Medium
-# https://leetcode.com/problems/combinations/ - Problem #77 Medium
 # https://leetcode.com/problems/count-primes/ - Problem #204 Medium
 
 if __name__ == '__main__':
