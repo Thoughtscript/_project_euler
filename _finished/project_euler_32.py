@@ -61,7 +61,6 @@ if __name__ == '__main__':
         # 1,7,1
         def create_expressions(num):
             NUM_STR = str(num)
-            # print("Creating expressions for " + NUM_STR)
             MIN = 1
             MAX = len(NUM_STR) - 1 - 1 + MIN
             expressions = []
@@ -90,7 +89,9 @@ if __name__ == '__main__':
                                         hm[KEY] = [multiplicand, multiplier, product]
                                         expressions.append([multiplicand, multiplier, product])
 
-            # print(expressions)
+            if len(expressions) > 0:
+                print("Creating expressions for " + NUM_STR)
+                print(expressions)
             return expressions
 
         def is_pandigital(num):
@@ -131,16 +132,17 @@ if __name__ == '__main__':
 
             return False
 
+        # Solved for all the numbers not just 1-9!
         def solve():
             DATA = [
-                [1],
-                [2,1],
-                [3,2,1],
-                [4,3,2,1],
-                [5,4,3,2,1],
-                [6,5,4,3,2,1],
-                [7,6,5,4,3,2,1],
-                [8,7,6,5,4,3,2,1],
+                #[1],
+                #[2,1],
+                #[3,2,1],
+                #[4,3,2,1],
+                #[5,4,3,2,1],
+                #[6,5,4,3,2,1],
+                #[7,6,5,4,3,2,1],
+                #[8,7,6,5,4,3,2,1],
                 [9,8,7,6,5,4,3,2,1]
             ]
 
@@ -174,7 +176,8 @@ if __name__ == '__main__':
             print("Sum of Unique Pandigital Products found: " + str(result))
             return result
 
-        solve()
+        solve() # 58912 - every pandigital of length 1 - 9
+                # 45228 - every pandigital of length 9 - problem solution
 
     except Exception as ex:
 
