@@ -7,8 +7,8 @@ if __name__ == '__main__':
         def solve():
             hm = {}
 
-            for x in range(0, 101,1):
-                for y in range(0, 101, 1):
+            for x in range(2, 101,1):
+                for y in range(2, 101, 1):
                     val = pow(x, y)
                     hm[val] = True
 
@@ -16,7 +16,7 @@ if __name__ == '__main__':
             print(str(result) + " distinct values")
             return result
 
-        solve()
+        solve() # 9183
 
     except Exception as ex:
 
