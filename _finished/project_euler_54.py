@@ -203,6 +203,11 @@ if __name__ == '__main__':
             print("Error: no score for hand " + str(hand) + " found!")
             raise Exception
 
+        # print(hash_hand(['KS', 'QS', 'AS', 'JS', 'TS']))
+        # print(hash_hand(['3S', '3D', '3C', 'JS', 'JD']))
+        # print(hash_hand(['3S', '4S', '5S', '6S', '7S']))
+        # print(hash_hand(['3S', '4S', '5S', '6S', '7D']))
+
         def solve():
             player_one_wins_total = 0
 
@@ -216,7 +221,7 @@ if __name__ == '__main__':
             print("Player one won: " + str(player_one_wins_total) + " times")
             return player_one_wins_total
 
-        solve() # Player one won: 376 times
+        # solve() # Player one won: 376 times
 
     except Exception as ex:
 
