@@ -29,12 +29,13 @@ if __name__ == '__main__':
             for x in range(a, b + 1, 1):
                 check = check_string(x, c)
                 if check[0] == True:
-                    sum = sum + check[1]
+                    if check[1] > 1:
+                        sum = sum + check[1]
 
             print(sum)
             return sum
 
-        solve(0, 99999999,5) # 240559
+        solve(0, 1000000,5) # 443840
         solve(0, 1000000, 4) # 19316
 
     except Exception as ex:
