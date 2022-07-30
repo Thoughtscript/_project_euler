@@ -20,13 +20,22 @@ if __name__ == '__main__':
         def solve():
             sum = 0
 
-            for x in range(29999999, 199999999, 1):
+            for x in range(-999999999, -99999999, 1):
                 s = str(x)
                 inner_sum = 0
+                first = True
                 for y in range(0, len(s), 1):
-                    inner_sum += MAPPINGS.get(s[y])
+                    if s[y] == "-":
+                        continue
 
-                if inner_sum == x and x >= 3:
+                    digit = MAPPINGS.get(s[y])
+                    if first and x < 0:
+                        inner_sum -= MAPPINGS.get(s[y])
+                    else:
+                        inner_sum += MAPPINGS.get(s[y])
+                    first = False
+
+                if inner_sum == x:
                     print("Digital factorial found: " + str(x))
                     sum += x
 
@@ -36,16 +45,27 @@ if __name__ == '__main__':
         # 145 is the only number below 9999999
         # none to 19999999
         # none to 29999999
+
+        # try negative numbers
         solve()
 
         def test(x):
             sum = 0
             s = str(x)
             inner_sum = 0
+            first = True
             for y in range(0, len(s), 1):
-                inner_sum += MAPPINGS.get(s[y])
+                if s[y] == "-":
+                    continue
 
-            if inner_sum == x and x != 1 and x != 2:
+                digit = MAPPINGS.get(s[y])
+                if first and x < 0:
+                    inner_sum -= MAPPINGS.get(s[y])
+                else:
+                    inner_sum += MAPPINGS.get(s[y])
+                first = False
+
+            if inner_sum == x:
                 print("Digital factorial found: " + str(x))
                 sum += x
 
