@@ -26,6 +26,7 @@ if __name__ == '__main__':
 
         def find_min_prod_sum(k, divisors, current_num):
             results = []
+            banned = {}
 
             for j in range(0, len(divisors), 1):
                 results.append([divisors[j]])
@@ -33,14 +34,12 @@ if __name__ == '__main__':
             j = 1
             while (j < k):
                 temp = []
+
                 for i in range(0, len(results), 1):
                     for l in range(0, len(divisors), 1):
                         inner_temp = copy.deepcopy(results[i]) 
                         inner_temp.append(divisors[l])
-
-                        # arrays must be equal at k and any k-1
-                        if sum_arr(inner_temp) == mult_arr(inner_temp):
-                            temp.append(inner_temp)
+                        temp.append(inner_temp)
 
                 results = copy.deepcopy(temp)
                 j += 1
@@ -87,7 +86,7 @@ if __name__ == '__main__':
             print(results_sum)
             return results_sum
 
-        solve(9) # 4 6 6 8 8 12 12
+        solve(15) # 4 6 6 8 8 12 12
         # deduplicated up to 2 <= k <= 12 is  {4, 6, 8, 12, 15, 16}
 
     except Exception as ex:
