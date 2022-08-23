@@ -3,9 +3,9 @@
 if __name__ == '__main__':
 
     try:
-
+        # 0! is 1 = ARGGGGGGGGGGGGGGGGGGGGGGGGG!!!!!!!!!!!!!!!!!
         MAPPINGS = {
-            "0": 0,
+            "0": 1,
             "1": 1,
             "2": 2,
             "3": 6,
@@ -20,7 +20,7 @@ if __name__ == '__main__':
         def solve():
             sum = 0
 
-            for x in range(-999, 0, 1):
+            for x in range(-999999999, 999999999, 1):
                 s = str(x)
                 inner_sum = 0
                 first = True
@@ -35,7 +35,6 @@ if __name__ == '__main__':
                         inner_sum += MAPPINGS.get(s[y])
                     first = False
 
-                print("Attempting " + str(inner_sum) + " for " + s)
                 if inner_sum == x:
                     print("Digital factorial found: " + str(x))
                     sum += x
@@ -43,37 +42,10 @@ if __name__ == '__main__':
             print(sum)
             return sum
 
-        # 145 is the only number below 9999999
-        # none to 19999999
-        # none to 29999999
-
-        # try negative numbers
-        solve()
-
-        def test(x):
-            sum = 0
-            s = str(x)
-            inner_sum = 0
-            first = True
-            for y in range(0, len(s), 1):
-                if s[y] == "-":
-                    continue
-
-                digit = MAPPINGS.get(s[y])
-                if first and x < 0:
-                    inner_sum -= MAPPINGS.get(s[y])
-                else:
-                    inner_sum += MAPPINGS.get(s[y])
-                first = False
-
-            if inner_sum == x:
-                print("Digital factorial found: " + str(x))
-                sum += x
-
-            print(sum)
-            return sum
-
-        # test(9999900)
+        solve() # 40,730
+        # 0! = 1 duh not 0
+        # No numbers are valid below 0
+        # 1! and 2! aren't counted
 
     except Exception as ex:
 
