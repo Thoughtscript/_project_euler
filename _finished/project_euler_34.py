@@ -20,7 +20,7 @@ if __name__ == '__main__':
         def solve():
             sum = 0
 
-            for x in range(-999999999, 0, 1):
+            for x in range(0, 999999999, 1):
                 s = str(x)
                 inner_sum = 0
                 first = True
@@ -42,10 +42,12 @@ if __name__ == '__main__':
             print(sum)
             return sum
 
-        solve() # 40,730
+        solve() # 40730
         # 0! = 1 duh not 0
         # No numbers are valid below 0
         # 1! and 2! aren't counted
+
+        # See: https://mathworld.wolfram.com/Factorion.html
 
     except Exception as ex:
 
