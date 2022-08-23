@@ -20,7 +20,7 @@ if __name__ == '__main__':
         def solve():
             sum = 0
 
-            for x in range(-999999999, -99999999, 1):
+            for x in range(-999, 0, 1):
                 s = str(x)
                 inner_sum = 0
                 first = True
@@ -35,6 +35,7 @@ if __name__ == '__main__':
                         inner_sum += MAPPINGS.get(s[y])
                     first = False
 
+                print("Attempting " + str(inner_sum) + " for " + s)
                 if inner_sum == x:
                     print("Digital factorial found: " + str(x))
                     sum += x
