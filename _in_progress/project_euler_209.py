@@ -26,6 +26,9 @@ if __name__ == '__main__':
             if (x == 1 and y == 1):
                 return 1       
        
+       # 2^6 total distinct rows
+       # Each of the 64 total distinct rows can also be assigned a 0 or a 1
+       # Therefore 2^7 total arrays generated
         def generate_rows():
             rows = []
 
@@ -35,6 +38,9 @@ if __name__ == '__main__':
                         for d in range(0,2,1):
                             for e in range(0,2,1):
                                 for f in range(0,2,1):
+
+                                    # This is the truth-assignment to the rest of the row
+                                    # Truth in this form for 'nd'/'and' would be [[1, 1, 1], [0, 0, 0], [1, 0, 0], [0, 1, 0]]
                                     for g in range(0,2,1):
                                         rows.append([a,b,c,d,e,f,g])
             
@@ -45,7 +51,8 @@ if __name__ == '__main__':
 
             rows = generate_rows()
 
-            print(str(len(rows)) + " Total Rows Found")
+            print(str(len(rows)) + " Total Unique Rows Found")
+            print(rows)
 
             for x in range(0, len(rows), 1):
 
@@ -76,12 +83,36 @@ if __name__ == '__main__':
             #   ...
             # ]
 
-            # Think it's 126 x 125 x 124 x 123 x count
-            result = 126 * 125 * 124 * 123 * count
+            # Note that each row must be distinct in a truth-table.
+            # Consider the following made up operator 'zx'
+            #
+            # | a b c | zx(a, b, c) |
+            # | ----- | ----------- |
+            # | 1 1 1 | 1           |
+            # | 1 0 1 | 1           |
+            # | 0 0 1 | 0           |
+            # | ...   |             |
+            #
+            # 2^3 distinct rows for boolean and 2^4 total rows with truth-assignments
+
+            # So, given two matching rows, how many total tables can those two rows belong to?
+            # Think it's count * (128 - 4) * (128 - 4 - 1) * (128 - 4 - 2) * (128 - 4 - 3) * (128 - 4 - 4)
+
+            # Consider again the above:
+            # [[1, 1, 1], [0, 0, 0], [1, 0, 0], [0, 1, 0]]
+            # [1, 1, 1], [0, 0, 0] can be combined with [1, 0, 0], [0, 1, 0], [1, 0, 1], [0, 1, 1]
+            # forming 2 distinct tables or 2 x 1 x count where count - 1
+            # ...
+            # The 2 comes from 4 - 2
+            # The 4 comes 2^3 total rows with truth assignments
+            # 2 ([1, 1, 0], [0, 0, 1]) are mutually exclusive with the other 2: [1, 1, 1], [0, 0, 0]
+            # So, 2^3 - 4 - 2
+
+            result = count * (128 - 4) * (128 - 4 - 1) * (128 - 4 - 2) * (128 - 4 - 3) * (128 - 4 - 4)
             print(result)
             return result
 
-        solve() # 46122048000
+        solve() # 5187456552960
 
     except Exception as ex:
 
