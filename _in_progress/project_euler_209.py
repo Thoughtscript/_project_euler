@@ -96,7 +96,7 @@ if __name__ == '__main__':
             # 2^3 distinct rows for boolean and 2^4 total rows with truth-assignments
 
             # So, given two matching rows, how many total tables can those two rows belong to?
-            # Think it's count * (128 - 2 * 2 * 1) * (128 - 2 * 2 * 2) * (128 - 2 * 2 * 3) * (128 - 2 * 2 * 4) * (128 - 2 * 2 * 5)
+            # Think it's count * (128 - 2 * 2) * (128 - 2 * 2 - 2) * (128 - 2 * 2 - 4) * (128 - 2 * 2 - 6) * (128 - 2 * 2 - 8)
 
             # Consider again the above:
             # [[1, 1, 1], [0, 0, 0], [1, 0, 0], [0, 1, 0]]
@@ -110,11 +110,11 @@ if __name__ == '__main__':
 
             # Note too that each row randomly selected actually removes both it and its mutually exclusive row!
 
-            result = count * (128 - 2 * 2 * 1) * (128 - 2 * 2 * 2) * (128 - 2 * 2 * 3) * (128 - 2 * 2 * 4) * (128 - 2 * 2 * 5)
+            result = count * (128 - 2 * 2) * (128 - 2 * 2 - 2) * (128 - 2 * 2 - 4) * (128 - 2 * 2 - 6) * (128 - 2 * 2 - 8)
             print(result)
             return result
 
-        solve() # 4008703426560
+        solve() # 4770940354560
 
     except Exception as ex:
 
