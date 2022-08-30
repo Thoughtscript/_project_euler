@@ -28,7 +28,7 @@ if __name__ == '__main__':
        
        # 2^6 total distinct rows
        # Each of the 64 total distinct rows can also be assigned a 0 or a 1
-       # Therefore 2^7 total arrays generated
+       # Therefore 2^7 total arrays generated (64 distinct and mutually exclusive pairs)
         def generate_rows():
             rows = []
 
@@ -68,53 +68,30 @@ if __name__ == '__main__':
                 for y in range(0, len(rows), 1):
                     if b == rows[y][0] and c == rows[y][1] and d == rows[y][2] and e == rows[y][3] and f == rows[y][4] and xx == rows[y][5]:
                         if nd(rows[x][6], rows[y][6]) == 0:
-                            count += 1
-                            print("Row match found: " + str(rows[x]) + " " + str(rows[y]))
+                            mututally_exl = True
+                            for z in range(0, len(rows[x]) - 1, 1):
+                                if not rows[x][z] == rows[y][z]:
+                                    mututally_exl = False
+                                    break
 
-            # Need to compute the permutations of the above...
-            # E.g. - Row match found: [1, 1, 0, 1, 1, 0, 0] [1, 0, 1, 1, 0, 1, 1]
+                            if not mututally_exl:
+                                count += 1
+                                print("Row match found: " + str(rows[x]) + " " + str(rows[y]))
 
-            # [
-            #   [1, 1, 0, 1, 1, 0, 0]
-            #   [1, 0, 1, 1, 0, 1, 1]
-            #   ...
-            #   ...
-            #   ...
-            #   ...
-            # ]
+            # 128 distinct rows can be generated.
+            # Each 6 variable input truth-table has 2^6 rows (64 total).
+            # Each match finds two 2 rows and excludes 2 other options (since 64 / 128 total are mutually exclusive with the other option).
+            # So, there are 2^6 rows - 2 remaining (62) and 124 remaining distinct combinations.
+            # For each of the remaining 34 rows, there are 2 possible truth assignments.
 
-            # Note that each row must be distinct in a truth-table.
-            # Consider the following made up operator 'zx'
-            #
-            # | a b c | zx(a, b, c) |
-            # | ----- | ----------- |
-            # | 1 1 1 | 1           |
-            # | 1 0 1 | 1           |
-            # | 0 0 1 | 0           |
-            # | ...   |             |
-            #
-            # 2^3 distinct rows for boolean and 2^4 total rows with truth-assignments
-
-            # So, given two matching rows, how many total tables can those two rows belong to?
-            # Think it's count * (128 - 2 * 2) * (128 - 2 * 2 - 2) * (128 - 2 * 2 - 4) * (128 - 2 * 2 - 6) * (128 - 2 * 2 - 8)
-
-            # Consider again the above:
-            # [[1, 1, 1], [0, 0, 0], [1, 0, 0], [0, 1, 0]]
-            # [1, 1, 1], [0, 0, 0] can be combined with [1, 0, 0], [0, 1, 0], [1, 0, 1], [0, 1, 1]
-            # forming 2 distinct tables or 2 x 1 x count where count - 1
-            # ...
-            # The 2 comes from 4 - 2
-            # The 4 comes 2^3 total rows with truth assignments
-            # 2 ([1, 1, 0], [0, 0, 1]) are mutually exclusive with the other 2: [1, 1, 1], [0, 0, 0]
-            # So, 2^3 - 4 - 2
-
-            # Note too that each row randomly selected actually removes both it and its mutually exclusive row!
-
-            result = count * (128 - 2 * 2) * (128 - 2 * 2 - 2) * (128 - 2 * 2 - 4) * (128 - 2 * 2 - 6) * (128 - 2 * 2 - 8)
-            print(result)
+            print("Matches found: " + str(count)) # 189
+            table_combos = pow(2, 6) - 2
+            print("Combinations per table found: " + str(table_combos)) # 62
+            result = count * table_combos
+            print("Total combinations found: " + str(result)) # 11718
             return result
 
-        solve() # 4770940354560
+        solve() # 11718 <- still incorrect - think the solution is strictly < 11718 since some matches above might be in the same table
 
     except Exception as ex:
 
