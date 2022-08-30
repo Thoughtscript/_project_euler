@@ -82,7 +82,7 @@ if __name__ == '__main__':
             # Each 6 variable input truth-table has 2^6 rows (64 total).
             # Each match finds two 2 rows and excludes 2 other options (since 64 / 128 total are mutually exclusive with the other option).
             # So, there are 2^6 rows - 2 remaining (62) and 124 remaining distinct combinations.
-            # For each of the remaining 34 rows, there are 2 possible truth assignments.
+            # For each of the remaining 62 rows, there are 2 possible truth assignments.
 
             print("Matches found: " + str(count)) # 189
             table_combos = pow(2, 6) - 2
