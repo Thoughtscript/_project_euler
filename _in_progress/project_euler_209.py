@@ -85,7 +85,8 @@ if __name__ == '__main__':
             # For each of the remaining 62 rows, there are 2 possible truth assignments.
 
             print("Matches found: " + str(count)) # 189
-            table_rows_left = pow(2, 6) - 2 # 62
+            table_rows_left = pow(2, 6) - 2
+            print("Table rows remaining: " + str(table_rows_left)) # 62
             table_combos = pow(2, table_rows_left)
             print("Combinations per table found: " + str(table_combos)) # 4611686018427387904
             result = count * table_combos
