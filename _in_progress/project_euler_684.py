@@ -24,6 +24,8 @@ if __name__ == '__main__':
             result = 0
 
             for x in range(0, k + 1, 1):
+                # see below for the first key observation: x999...
+                # also, looks like the difference in modulo is a constant number 79,865,283 after a certain point or for a certain range
                 if x < 10:
                     result += x
                 else:
@@ -38,7 +40,7 @@ if __name__ == '__main__':
                             temp = temp + "9"
 
                         temp_int = int(temp) % 1000000007
-
+                        
                         print("New smallest number found for " + str(x) + " which is " + str(temp_int) + " modulo 1000000007 for Fib. no. " + str(k))
                         # Modulo 1000000007
                         result += temp_int
@@ -66,7 +68,7 @@ if __name__ == '__main__':
         def solve():
             result = 0
 
-            for f in range(0, 90, 2):
+            for f in range(0, 90, 1):
                 print("Fib. no. " + str(FIB[f]))
                 result += sigma_notation(FIB[f])
 
