@@ -6,7 +6,6 @@ if __name__ == '__main__':
 
     try:
 
-
         # Generate an 0-indexed array where:
         # sieve[i] = False indicates non-prime
         # sieve[i] = True indicates prime
