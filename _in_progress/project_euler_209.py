@@ -31,6 +31,7 @@ if __name__ == '__main__':
        # Therefore 2^7 total arrays generated (64 distinct and mutually exclusive pairs)
         def generate_rows():
             rows = []
+            # base_table_template = []
 
             for a in range(0,2,1):
                 for b in range(0,2,1):
@@ -38,13 +39,31 @@ if __name__ == '__main__':
                         for d in range(0,2,1):
                             for e in range(0,2,1):
                                 for f in range(0,2,1):
+                                    # base_table_template.append([a,b,c,d,e,f])
 
                                     # This is the truth-assignment to the rest of the row
                                     # Truth in this form for 'nd'/'and' would be [[1, 1, 1], [0, 0, 0], [1, 0, 0], [0, 1, 0]]
                                     for g in range(0,2,1):
                                         rows.append([a,b,c,d,e,f,g])
-            
+
+            # print(str(base_table_template))
+         
             return rows
+        
+        def compare(a, b):
+            count = 0
+
+            for x in range(0, len(a), 1):
+                if not a[x] == b[x]:
+                    count+=1
+
+            if count == 1:
+                for x in range(0, len(a), 1):
+                    if not a[x] == b[x]:
+                        print("invalid found " + str(a) + " " + str(b))
+                        return False
+
+            return True
         
         def solve():
             count = 0
@@ -54,6 +73,9 @@ if __name__ == '__main__':
             print(str(len(rows)) + " Total Unique Rows Found")
             print(rows)
 
+            left_match = []
+            right_match = []
+
             for x in range(0, len(rows), 1):
 
                 a = rows[x][0]
@@ -62,12 +84,20 @@ if __name__ == '__main__':
                 d = rows[x][3]
                 e = rows[x][4]
                 f = rows[x][5]
-
+                left_conjunct = rows[x][6]
                 xx = xor(a, nd(b, c))
 
                 for y in range(0, len(rows), 1):
-                    if b == rows[y][0] and c == rows[y][1] and d == rows[y][2] and e == rows[y][3] and f == rows[y][4] and xx == rows[y][5]:
-                        if nd(rows[x][6], rows[y][6]) == 0:
+                    y_a = rows[y][0]
+                    y_b = rows[y][1]
+                    y_c = rows[y][2]
+                    y_d = rows[y][3]
+                    y_e = rows[y][4]
+                    y_f = rows[y][5]
+                    right_conjunct = rows[y][6]
+
+                    if b == y_a and c == y_b and d == y_c and e == y_d and f == y_e and xx == y_f:
+                        if nd(left_conjunct, right_conjunct) == 0:
                             mututally_exl = True
                             for z in range(0, len(rows[x]) - 1, 1):
                                 if not rows[x][z] == rows[y][z]:
@@ -77,6 +107,42 @@ if __name__ == '__main__':
                             if not mututally_exl:
                                 count += 1
                                 print("Row match found: " + str(rows[x]) + " " + str(rows[y]))
+                                left_match.append(rows[x])
+                                right_match.append(rows[y])
+            
+            total_invalid = 0
+            string_hashes = []
+            string_hash_count = {}
+            duplicates_count = 0
+
+            for z in range(0, len(left_match), 1):
+                if not compare(left_match[z], right_match[z]):
+                    total_invalid += 1
+                else:
+                    string_hashes.append(str(left_match[z]))
+                    string_hashes.append(str(right_match[z]))
+
+                    key_a = str(left_match[z]) + " " + str(right_match[z])
+                    val_a = string_hash_count.get(key_a)
+                    if not val_a:
+                        string_hash_count[key_a] = 1
+                    else:
+                        string_hash_count[key_a] = val_a + 1
+                        print("Detected duplicate key_a: " + str(key_a))
+                        duplicates_count += 1
+
+                    key_b = str(right_match[z]) + " " + str(left_match[z])
+                    val_b = string_hash_count.get(key_b)
+                    if not val_b:
+                        string_hash_count[key_b] = 1
+                    else:
+                        string_hash_count[key_b] = val_b + 1
+                        print("Detected duplicate key_b: " + str(key_b))
+                        duplicates_count += 1
+            
+            print("Total invalid combinations found: " + str(total_invalid))
+            print("Valid string hashes found - should be even: " + str(len(string_hashes)))
+            print("Duplciate string hashes found - should be even: " + str(duplicates_count))
 
             # 128 distinct rows can be generated.
             # Each 6 variable input truth-table has 2^6 rows (64 total).
@@ -85,15 +151,17 @@ if __name__ == '__main__':
             # For each of the remaining 62 rows, there are 2 possible truth assignments.
 
             print("Matches found: " + str(count)) # 189
-            table_rows_left = pow(2, 6) - 2
-            print("Table rows remaining: " + str(table_rows_left)) # 62
+            valid_count = count - total_invalid - round(duplicates_count / 2) # 189 - 5 - 3 or 181
+            print("Valid matches found: " + str(valid_count))
+            table_rows_left = pow(2, 6) - 2 - 2 # not just 2, since the other two rows are determined and fixed
+            print("Table rows remaining: " + str(table_rows_left)) # 62 - 2
             table_combos = pow(2, table_rows_left)
-            print("Combinations per table found: " + str(table_combos)) # 4611686018427387904
-            result = count * table_combos
-            print("Total combinations found: " + str(result)) # 871608657482776313856
+            print("Combinations per table found: " + str(table_combos)) # 1152921504606846976
+            result = valid_count * table_combos
+            print("Total combinations found: " + str(result)) # 208678792333839302656
 
-            # Think the answer is strictly less than 871608657482776313856
-            # Specifically strictly matches are less than 189 since some matches can be in the same table.
+            # Think the answer is strictly less than 208678792333839302656
+            # Specifically strictly matches are less than 181 since some matches can be in the same table.
             return result
 
         solve()
