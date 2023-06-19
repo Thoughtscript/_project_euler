@@ -1,6 +1,9 @@
 Matches of two columns in same table:
 
 ```
+Row match found: [0, 0, 0, 0, 0, 0, 0] [0, 0, 0, 0, 0, 0, 0]
+Row match found: [0, 0, 0, 0, 0, 0, 0] [0, 0, 0, 0, 0, 0, 1]
+Row match found: [0, 0, 0, 0, 0, 0, 1] [0, 0, 0, 0, 0, 0, 0]
 Row match found: [0, 0, 0, 0, 0, 1, 0] [0, 0, 0, 0, 1, 0, 0]
 Row match found: [0, 0, 0, 0, 0, 1, 0] [0, 0, 0, 0, 1, 0, 1]
 Row match found: [0, 0, 0, 0, 0, 1, 1] [0, 0, 0, 0, 1, 0, 0]
@@ -190,6 +193,7 @@ Row match found: [1, 1, 1, 1, 1, 0, 1] [1, 1, 1, 1, 0, 0, 0]
 Row match found: [1, 1, 1, 1, 1, 1, 0] [1, 1, 1, 1, 1, 0, 0]
 Row match found: [1, 1, 1, 1, 1, 1, 0] [1, 1, 1, 1, 1, 0, 1]
 Row match found: [1, 1, 1, 1, 1, 1, 1] [1, 1, 1, 1, 1, 0, 0]
+
 ```
 
 Truth-table rows (without `0` or `1` to each row):

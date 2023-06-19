@@ -53,15 +53,17 @@ if __name__ == '__main__':
         def compare(a, b):
             count = 0
 
-            for x in range(0, len(a), 1):
-                if not a[x] == b[x]:
-                    count+=1
+            if not a[len(a) - 1] == b[len(b) - 1]:
 
-            if count == 1:
                 for x in range(0, len(a), 1):
                     if not a[x] == b[x]:
-                        print("invalid found " + str(a) + " " + str(b))
-                        return False
+                        count+=1
+
+                if count == 1:
+                    for x in range(0, len(a), 1):
+                        if not a[x] == b[x]:
+                            print("invalid found " + str(a) + " " + str(b))
+                            return False
 
             return True
         
@@ -98,13 +100,20 @@ if __name__ == '__main__':
 
                     if b == y_a and c == y_b and d == y_c and e == y_d and f == y_e and xx == y_f:
                         if nd(left_conjunct, right_conjunct) == 0:
-                            mututally_exl = True
-                            for z in range(0, len(rows[x]) - 1, 1):
-                                if not rows[x][z] == rows[y][z]:
-                                    mututally_exl = False
-                                    break
+                            # relaxing the constraint here for not outright contradictory models but really counterintuitive ones:
+                            #
+                            #  [0, 1, 1, 1, 1, 1] 
+                            #  [1, 1, 1, 1, 1, 1]
+                            #
+                            # e.g. the pair of rows above both resolve to false when it seems the first should be true and the second (or vice-versa)
 
-                            if not mututally_exl:
+                            #mututally_exl = True
+                            #for z in range(0, len(rows[x]) - 1, 1):
+                            #    if not rows[x][z] == rows[y][z]:
+                            #        mututally_exl = False
+                            #        break
+
+                            #if not mututally_exl:
                                 count += 1
                                 print("Row match found: " + str(rows[x]) + " " + str(rows[y]))
                                 left_match.append(rows[x])
@@ -142,7 +151,7 @@ if __name__ == '__main__':
             
             print("Total invalid combinations found: " + str(total_invalid))
             print("Valid string hashes found - should be even: " + str(len(string_hashes)))
-            print("Duplciate string hashes found - should be even: " + str(duplicates_count))
+            print("Duplicate string hashes found: " + str(duplicates_count))
 
             # 128 distinct rows can be generated.
             # Each 6 variable input truth-table has 2^6 rows (64 total).
@@ -150,17 +159,17 @@ if __name__ == '__main__':
             # So, there are 2^6 rows - 2 remaining (62) and 124 remaining distinct combinations.
             # For each of the remaining 62 rows, there are 2 possible truth assignments.
 
-            print("Matches found: " + str(count)) # 189
-            valid_count = count - total_invalid - round(duplicates_count / 2) # 189 - 5 - 3 or 181
+            print("Matches found: " + str(count)) # 192
+            valid_count = count - total_invalid - 3 # round(duplicates_count / 2) # 192 - 2 - 3 or 187
             print("Valid matches found: " + str(valid_count))
-            table_rows_left = pow(2, 6) - 2 - 2 # not just 2, since the other two rows are determined and fixed
-            print("Table rows remaining: " + str(table_rows_left)) # 62 - 2
+            table_rows_left = pow(2, 6) - 2
+            print("Table rows remaining: " + str(table_rows_left)) # 62
             table_combos = pow(2, table_rows_left)
             print("Combinations per table found: " + str(table_combos)) # 1152921504606846976
             result = valid_count * table_combos
-            print("Total combinations found: " + str(result)) # 208678792333839302656
+            print("Total combinations found: " + str(result)) # 862385285445921538048
 
-            # Think the answer is strictly less than 208678792333839302656
+            # Think the answer is strictly less than 862385285445921538048
             # Specifically strictly matches are less than 181 since some matches can be in the same table.
             return result
 
