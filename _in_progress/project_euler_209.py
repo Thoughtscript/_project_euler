@@ -170,7 +170,7 @@ if __name__ == '__main__':
             print("Total combinations found: " + str(result)) # 862385285445921538048
 
             # Think the answer is strictly less than 862385285445921538048
-            # Specifically strictly matches are less than 181 since some matches can be in the same table.
+            # Specifically strictly matches are less than 187 since some matches can be in the same table.
             return result
 
         solve()
