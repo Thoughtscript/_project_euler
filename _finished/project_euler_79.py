@@ -146,6 +146,13 @@ if __name__ == '__main__':
 
         solve(9) #73162890
 
+        # So, I fucked this one up. See Lines 111-119 were fucked.
+        ## Needed something like (and this is still wildly sub-optimal prob) log N (popping array) wrapping a Sliding Window Technique
+        ## I was missing the correct boolean checks there
+
+        # Also, I assumed it would be well above 8 length and so coded for like length 35 digits
+        ## So, a lot of the Heap's > length 8 and make_nums stuff isn't needed since it's actualy length 8!
+
     except Exception as ex:
 
         print('Exception: ' + str(ex))
