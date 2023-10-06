@@ -2,6 +2,9 @@
 
 if __name__ == '__main__':
 
+    import time
+    import math
+
     # This is a much much faster implementation.
     ## Iterates from 1 to mx_num
     ## Along the way performs faster prime factorization (instead of brute-force checking each prime number < curr_num)
@@ -13,7 +16,8 @@ if __name__ == '__main__':
         # mx_num = 100 # 2262
         # mx_num = 1000 # 193408
         # mx_num = 10000 # 16373230
-        mx_num = 100000
+        # mx_num = 100000 # 1414000891
+        mx_num = 10000000
         
         def sieve_of_eratosthenes(num):
             sieve = [0] * num
@@ -43,10 +47,10 @@ if __name__ == '__main__':
                 else:
                     result[2] += 1
 
-            for x in range(3, num+1, 2):
+            for x in range(3, num + 1, 2):
                 # Small tweak here so no more than 3 primes are computed per curr_num
                 if len(result.keys()) > 2:
-                    return result
+                    break
 
                 if (primes[x-1] == False):
                     continue
@@ -75,12 +79,15 @@ if __name__ == '__main__':
         # print(sum_arr([96, 100, 98, 88, 52, 68, 76, 92, 58, 62, 74, 82, 86, 94, 75, 63, 99, 39, 51, 57, 69, 87,93, 35, 55, 65, 85, 95, 77, 91])) # 2262
     
         def solve(mx):
+            start = time.time()
             total_score = 0
 
             for x in range(1, mx + 1, 1):
+                # print("Trying " + str(x))
                 result = two_primes(x)
                 keys = list(result.keys())
                 if len(keys) == 2:
+                    print("Number found: " + str(x) + " with " + str(keys))
                     keyA = keys[0]
                     keyB = keys[1]
                     if largest.get(keyA) is None:
@@ -96,7 +103,8 @@ if __name__ == '__main__':
             for x in range(0, len(largest_keys), 1):
                 total_score += sum_arr(list((largest.get(largest_keys[x]).values())))          
             
-            print(total_score) 
+            end = time.time()
+            print("Total Score found: " +str(total_score) + " for " + str(mx) + " in " + str(end))
 
         solve(mx_num)
 
