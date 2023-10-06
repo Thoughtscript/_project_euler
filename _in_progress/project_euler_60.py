@@ -1,6 +1,6 @@
 # https://projecteuler.net/problem=60
 
-import primes_to_2mil as P
+import primes_to_5_mil as P
 
 if __name__ == '__main__':
 
