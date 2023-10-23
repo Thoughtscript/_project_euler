@@ -24,8 +24,6 @@ if __name__ == '__main__':
             PRIMES = P.primes[0:slice_num]
             PRIME_MAP = prime_map()
             PRIMES.sort()
-            hm = {}
-
             LEN = len(PRIMES)
 
             for x in range(0, LEN, 1):
@@ -54,7 +52,7 @@ if __name__ == '__main__':
                                 arr.append(PRIMES[q])
 
                                 flag = True
-                                print("Trying " + str(arr))
+                                #print("Trying " + str(arr))
 
                                 for a in range(0, 4, 1):
                                     for b in range(0, 4, 1):
