@@ -38,18 +38,42 @@
 
 if __name__ == '__main__':
 
-    import primes_to_50_mil
-
     try:   
-        def prime_map():
+        # Generate an 0-indexed array where:
+        # sieve[i] = False indicates non-prime
+        # sieve[i] = True indicates prime
+        def sieve_of_eratosthenes(num):
+            sieve = [0] * num
+            sieve[0] = False
+
+            for x in range(2, num+1, 1):
+                if sieve[x-1] is 0:
+                    sieve[x-1] = True
+
+                for y in range(x*2, num+1, x):
+                    sieve[y-1] = False
+
+            return sieve
+
+        def map_num_to_arr(sieve):
+            primes = []
+
+            for x in range(0, len(sieve), 1):
+                if sieve[x] == True:
+                    primes.append(x+1)
+
+            return primes
+
+        def prime_map(num):
+            sieve = sieve_of_eratosthenes(num)
             primes = {}
 
-            for x in range(0, len(primes_to_50_mil.primes), 1):
-                primes[primes_to_50_mil.primes[x]] = True
+            for x in range(0, len(sieve), 1):
+                primes[sieve[x]] = True
             
             return primes
         
-        PRIME_MAP = prime_map()
+        PRIME_MAP = prime_map(9999999)
 
         def is_prime(x):
             return not PRIME_MAP.get(x) is None
