@@ -27,8 +27,9 @@ if __name__ == '__main__':
                 return x
              
             arr_rep = [x % 9, x // 9]
+
             num = to_int(arr_rep)
-            # print(str(num))
+            #print(str(arr_rep))
 
             return num
 

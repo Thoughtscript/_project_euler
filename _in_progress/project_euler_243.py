@@ -45,7 +45,7 @@ if __name__ == '__main__':
             return map
         
         # Every num can be put into prime factorization
-        # If a num and denom don't share any prime factors, it's already proper
+        # If a num and denom don't share any prime factors, it's already reduced.
         #
         # The total distinct number of prime factors is relatively small 
         # so this is much faster than checking by GCD.
@@ -101,7 +101,7 @@ if __name__ == '__main__':
             print("No solution found!")
 
         # solve(1_079_651, 2_000_000)
-        solve(145_963, 2_000_000)
+        solve(184_874, 2_000_000)
                          
     except Exception as ex:
 
