@@ -17,6 +17,8 @@ Then continue to check through the next primes in the same way until the total a
 18 is 2 x 3 x 3
 ```
 
+> Compare the prime factors of a numerator and denominator to determine if maximally reduced fraction.
+
 # Sieve of Eratosthenes
 
 1. https://www.geeksforgeeks.org/sieve-of-eratosthenes/
@@ -42,3 +44,12 @@ Then continue to check through the next primes in the same way until the total a
 3. Multiple each prime factor exponent adding one to each multiple 1: d(24) = (3+1)(1+1) = 2 x 2 x 2 x 3
 4. So, there are 8 divisors for 24: 1,2,3,4,6,8,12,24
 ```
+
+# Euler's Totient Function
+
+1. https://cp-algorithms.com/algebra/phi-function.html
+
+'''
+1. Finds all of the coprimes relative to a number.
+2. Can be used to find all maximally reduced proper fractions up to some number n.
+'''
